@@ -2,6 +2,11 @@
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
+## Threlte
+
+- Will be making the project in Threlte
+- https://threlte.xyz/docs/learn/getting-started/introduction
+
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!
