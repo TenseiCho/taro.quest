@@ -1,28 +1,20 @@
 <script lang="ts">
-  import { Canvas } from '@threlte/core'
-  import { OrbitControls } from '@threlte/extras'
-  import { SphereGeometry, MeshStandardMaterial } from 'three'
-
-  const geometry = new SphereGeometry(1, 32, 32)
-  const material = new MeshStandardMaterial({ color: 0x00ff00 })
+  import App from '$lib/components/App.svelte'
 </script>
 
+<div>
+  <App />
+</div>
+
 <style>
-    :global(canvas) {
-      width: 100%;
-      height: 300px;
-    }
+  :global(body) {
+    margin: 0;
+  }
+
+  div {
+    width: 100vw;
+    height: 100vh;
+    background: rgb(13, 19, 32);
+    background: linear-gradient(180deg, rgba(13, 19, 32, 1) 0%, rgba(8, 12, 21, 1) 100%);
+  }
 </style>
-
-<Canvas>
-  <OrbitControls />
-  <ambientLight intensity={0.5} />
-  <directionalLight position={[10, 10, 10]} intensity={1} />
-  <mesh>
-    <sphereGeometry args={[1, 32, 32]} />
-    <meshStandardMaterial color={0x00ff00} />
-  </mesh>
-</Canvas>
-
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
