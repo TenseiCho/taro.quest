@@ -1,19 +1,59 @@
 <script lang="ts">
   import { T } from '@threlte/core'
-  import { ContactShadows, Float, Grid, OrbitControls } from '@threlte/extras'
+  import { ContactShadows, Float, Grid, OrbitControls, useGltf } from '@threlte/extras'
+
+  const gltf = useGltf('/zeze_3d_anime_girl.glb')
+
+  let orbitControlsRef: OrbitControls
+
+  function setView(x: number, y: number, z: number) {
+    if (orbitControlsRef) {
+      orbitControlsRef.object.position.set(x, y, z)
+      orbitControlsRef.target.set(0, 0, 0)
+      orbitControlsRef.update()
+    }
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    switch(event.key) {
+      case 'Numpad1': setView(0, 0, 7); break;  // Front view
+      case 'Numpad3': setView(7, 0, 0); break;  // Right view
+      case 'Numpad7': setView(0, 7, 0); break;  // Top view
+      case 'Numpad5': orbitControlsRef?.togglePerspective(); break;  // Toggle perspective/orthographic
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <T.PerspectiveCamera
   makeDefault
-  position={[-10, 10, 10]}
-  fov={15}
+  position={[7, 7, 7]}
+  fov={35}
 >
   <OrbitControls
-    autoRotate
-    enableZoom={false}
+    bind:this={orbitControlsRef}
     enableDamping
-    autoRotateSpeed={0.5}
-    target.y={1.5}
+    dampingFactor={0.05}
+    screenSpacePanning={true}
+    minDistance={1}
+    maxDistance={1000}
+    maxPolarAngle={Math.PI / 2 - 0.1}
+    keys={{
+      LEFT: 'ArrowLeft', 
+      UP: 'ArrowUp', 
+      RIGHT: 'ArrowRight', 
+      BOTTOM: 'ArrowDown'
+    }}
+    mouseButtons={{
+      LEFT: 1,
+      MIDDLE: 2,
+      RIGHT: 3
+    }}
+    touches={{
+      ONE: 0,
+      TWO: 2
+    }}
   />
 </T.PerspectiveCamera>
 
@@ -40,42 +80,13 @@
   opacity={0.5}
 />
 
-<Float
-  floatIntensity={1}
-  floatingRange={[0, 1]}
->
-  <T.Mesh
-    position.y={1.2}
-    position.z={-0.75}
-  >
-    <T.BoxGeometry />
-    <T.MeshStandardMaterial color="#0059BA" />
-  </T.Mesh>
-</Float>
-
-<Float
-  floatIntensity={1}
-  floatingRange={[0, 1]}
->
-  <T.Mesh
-    position={[1.2, 1.5, 0.75]}
-    rotation.x={5}
-    rotation.y={71}
-  >
-    <T.TorusKnotGeometry args={[0.5, 0.15, 100, 12, 2, 3]} />
-    <T.MeshStandardMaterial color="#F85122" />
-  </T.Mesh>
-</Float>
-
-<Float
-  floatIntensity={1}
-  floatingRange={[0, 1]}
->
-  <T.Mesh
-    position={[-1.4, 1.5, 0.75]}
-    rotation={[-5, 128, 10]}
-  >
-    <T.IcosahedronGeometry />
-    <T.MeshStandardMaterial color="#F8EBCE" />
-  </T.Mesh>
-</Float>
+{#await gltf}
+  <!-- Optional: Show loading state -->
+{:then model}
+  {console.log('Model loaded:', model)}
+  <T.Group scale={0.5} position.y={1}>
+    <T.Primitive object={model.scene} />
+  </T.Group>
+{:catch error}
+  {console.error('Error loading model:', error)}
+{/await}
