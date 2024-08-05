@@ -1,43 +1,72 @@
-# create-svelte
+# Taro Quest
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+A 3D web application built with SvelteKit and Threlte.
 
-## Threlte
+## Project Overview
 
-- Will be making the project in Threlte
-- https://threlte.xyz/docs/learn/getting-started/introduction
+Taro Quest is a 3D web application that showcases a 3D anime girl model in an interactive environment. The project utilizes SvelteKit for the application framework and Threlte for 3D rendering capabilities.
 
-## Creating a project
+## Technologies Used
 
-If you're seeing this, you've probably already done this step. Congrats!
+- SvelteKit
+- Threlte
+- Three.js
+- TypeScript
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Getting Started
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+### Prerequisites
 
-## Developing
+- Node.js (version 14 or later recommended)
+- npm (comes with Node.js)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Installation
 
-```bash
-npm run dev
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/taro-quest.git
+   cd taro-quest
+   ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-## Building
+### Development
+
+To start the development server:
+    ```
+    npm run dev
+    ```
+
+This will start the server and open the app in a new browser tab. The app will automatically reload if you change any of the source files.
+
+### Building for Production
 
 To create a production version of your app:
+    ```
+    npm run build
+    ```
 
-```bash
-npm run build
-```
+You can preview the production build with:
+    ```
+    npm run preview
+    ```
 
-You can preview the production build with `npm run preview`.
+## Project Structure
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- `src/lib/components/`: Contains Svelte components including the main App and Scene components.
+- `src/lib/components/models/`: Contains the 3D model components, such as the anime girl.
+- `src/routes/`: Contains the SvelteKit routes.
+- `static/`: Contains static assets, including 3D model files.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- 3D Anime Girl Model: "Zeze 3d Anime Girl" by DrewBurger (https://sketchfab.com/3d-models/zeze-3d-anime-girl-e35bbebf648f4824b4308bf23718e57e)
+- Threlte: https://threlte.xyz/
+- SvelteKit: https://kit.svelte.dev/
