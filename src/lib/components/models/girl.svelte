@@ -8,14 +8,21 @@ Title: Zeze 3d Anime Girl
 -->
 
 <script>
-  import { Group } from 'three'
+  import { Group, TextureLoader } from 'three'
   import { T, forwardEventHandlers } from '@threlte/core'
   import { useGltf } from '@threlte/extras'
 
   export const ref = new Group()
 
-  // Update this line
   const gltf = useGltf('static/models/girl.glb')
+
+  // Create a TextureLoader
+  const textureLoader = new TextureLoader()
+
+  // Load textures
+  const bodyTexture = textureLoader.load('static/textures/body_texture.jpg')
+  const hairTexture = textureLoader.load('static/textures/hair_texture.jpg')
+  // Load other textures as needed
 
   const component = forwardEventHandlers()
 </script>
@@ -25,6 +32,11 @@ Title: Zeze 3d Anime Girl
     <slot name="fallback" />
   {:then gltf}
     <T.Group scale={0.01}>
+      <!-- Apply textures to materials -->
+      <T.MeshStandardMaterial args={[gltf.materials.Body]} map={bodyTexture} />
+      <T.MeshStandardMaterial args={[gltf.materials.Hair]} map={hairTexture} />
+      <!-- Apply other textures as needed -->
+
       <T.Group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
         <T.Mesh geometry={gltf.nodes.Apron_Body_0.geometry} material={gltf.materials.Body} />
         <T.Mesh geometry={gltf.nodes.Apron_Material002_0.geometry} material={gltf.materials['Material.002']} />
