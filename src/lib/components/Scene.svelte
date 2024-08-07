@@ -1,11 +1,24 @@
 <script>
 	import { T } from '@threlte/core';
-	import { OrbitControls, Grid, Text } from '@threlte/extras';
+	import { OrbitControls, Grid } from '@threlte/extras';
 	import Girl from './models/jp-girl.svelte';
 	import NewScene from './NewScene.svelte';
+	import { cameraPosition, cameraRotation } from '../stores/cameraStore';
+	import { onMount } from 'svelte';
 
 	let currentScene = 'original';
+	let originalCamera;
+	let newCamera;
+
+	function updateCameraStore(camera) {
+		if (camera) {
+			cameraPosition.set(camera.position);
+			cameraRotation.set(camera.rotation);
+		}
+	}
+
 	function toggleScene() {
+		updateCameraStore(currentScene === 'original' ? originalCamera : newCamera);
 		currentScene = currentScene === 'original' ? 'new' : 'original';
 	}
 
@@ -14,12 +27,22 @@
 			toggleScene();
 		}
 	}
+
+	onMount(() => {
+		const interval = setInterval(() => {
+			updateCameraStore(currentScene === 'original' ? originalCamera : newCamera);
+		}, 100);
+
+		return () => {
+			clearInterval(interval);
+		};
+	});
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
 
 {#if currentScene === 'original'}
-	<T.PerspectiveCamera makeDefault position={[0, 5, 10]} fov={45}>
+	<T.PerspectiveCamera makeDefault position={[0, 5, 10]} fov={45} bind:ref={originalCamera}>
 		<OrbitControls enableDamping />
 	</T.PerspectiveCamera>
 
@@ -30,33 +53,10 @@
 
 	<Girl />
 {:else if currentScene === 'new'}
-	<NewScene />
+	<NewScene bind:camera={newCamera} />
 {/if}
 
-<!-- Scene indicator text -->
-<Text
-	position={[0, 2, 0]}
-	scale={0.5}
-	color="white"
-	anchorX="center"
-	anchorY="middle"
-	renderOrder={1}
-	castShadow
-	receiveShadow={false}
->
-	Current Scene: {currentScene === 'original' ? 'Original' : 'New'}
-</Text>
-
-<!-- Instructions for scene switching -->
-<Text
-	position={[0, -2, 0]}
-	scale={0.3}
-	color="white"
-	anchorX="center"
-	anchorY="middle"
-	renderOrder={1}
-	castShadow
-	receiveShadow={false}
->
-	Press SHIFT to switch scenes
-</Text>
+<!-- Optional: Display current scene name for user feedback -->
+<div style="position: absolute; top: 10px; left: 10px; color: white; font-size: 16px; background-color: rgba(0,0,0,0.5); padding: 5px;">
+	Current Scene: {currentScene}
+</div>
