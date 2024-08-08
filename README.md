@@ -69,6 +69,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgements
 
-- 3D Anime Girl Model: "Zeze 3d Anime Girl" by DrewBurger (https://sketchfab.com/3d-models/zeze-3d-anime-girl-e35bbebf648f4824b4308bf23718e57e)
+- Japanese Anime Cute Bob Cut (Short Hair) Student Model: (https://sketchfab.com/3d-models/japanese-anime-cute-bob-cut-short-hair-student-613016ece6c349448e27afbe073aab8d#download)
 - Threlte: https://threlte.xyz/
 - SvelteKit: https://kit.svelte.dev/
