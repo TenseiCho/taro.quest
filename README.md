@@ -59,6 +59,8 @@ You can preview the production build with:
 - `src/lib/components/`: Contains Svelte components including the main App and Scene components.
 - `src/lib/components/models/`: Contains the 3D model components, such as the anime girl.
 - `src/routes/`: Contains the SvelteKit routes.
+- `src/lib/stores/`: Contains Svelte stores for state management.
+- `src/lib/utils/`: Contains utility functions and helpers.
 - `static/`: Contains static assets, including 3D model files.
 
 ## License
